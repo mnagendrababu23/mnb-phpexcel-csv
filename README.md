@@ -1,13 +1,20 @@
-# mnb/mnb-phpexcel-csv
+# MNB PHPExcel CSV
 
-CSV reader/writer module for MNB PHPExcel.
-Documentation URL: https://mnbphpexcel.space/getting-started/installation
-This package is generated from the MNB PHPExcel monorepo. Do not copy source files between modules manually.
-
-## Install
+Independent CSV reader/writer module. Requires only `mnb/mnb-phpexcel-core`.
 
 ```bash
-composer require mnb/mnb-phpexcel-csv
+composer require mnb/mnb-phpexcel-csv:^2.0
 ```
 
-See the main project documentation for typed options, streaming reads, and compatibility notes.
+```php
+use Mnb\PHPExcel\Format\Csv;
+
+$rows = Csv::read('customers.csv')->withHeaderRow()->toArray();
+
+Csv::write($rows, 'customers-export.csv', [
+    'with_header' => true,
+    'dialect' => 'excel',
+]);
+```
+
+Supports streaming reads, dialect detection/configuration, encoding conversion, BOM handling, projection, and formula-injection policies.
