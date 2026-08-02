@@ -1,0 +1,12 @@
+# Changed/new files for mnb-phpexcel-csv
+# Apply at the repository root, preserving paths.
+
+MODIFIED CHANGELOG.md
+MODIFIED README.md
+MODIFIED VERSION
+MODIFIED composer.json
+MODIFIED src/Format/Csv.php
+NEW      src/Reader/CsvMetadataReader.php
+MODIFIED src/Reader/CsvReader.php
+NEW      tests/metadata_edge_smoke.php
+NEW      tests/metadata_smoke.php
