@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": ">=8.1",
-        "mnb/mnb-phpexcel-core": "^2.0.5"
+        "mnb/mnb-phpexcel-core": "^2.0.6"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
