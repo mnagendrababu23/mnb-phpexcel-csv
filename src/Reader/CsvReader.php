@@ -4,16 +4,23 @@ declare(strict_types=1);
 
 namespace Mnb\PHPExcel\Reader;
 
+use Mnb\PHPExcel\Snapshot\VisualSnapshotReaderInterface;
 use Mnb\PHPExcel\Support\CsvDialect;
 use Mnb\PHPExcel\Support\EncodingDetector;
 use Mnb\PHPExcel\Support\ErrorCode;
 use Mnb\PHPExcel\Support\MnbExcelException;
 
-final class CsvReader implements IterableReaderInterface, FormatAwareReaderInterface, MetadataReaderInterface
+final class CsvReader implements IterableReaderInterface, FormatAwareReaderInterface, MetadataReaderInterface, VisualSnapshotReaderInterface
 {
     public function format(): string
     {
         return 'csv';
+    }
+
+    /** @param array<string,mixed> $options @return array<string,mixed> */
+    public function visualSnapshot(string $path, array $options = []): array
+    {
+        return (new CsvVisualSnapshotReader($this))->visualSnapshot($path, $options);
     }
 
     /** @param array<string,mixed> $options @return array<string,mixed> */
