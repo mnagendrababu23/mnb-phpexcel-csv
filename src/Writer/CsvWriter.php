@@ -59,10 +59,19 @@ final class CsvWriter
                         return (string) ValueSanitizer::sanitizeFormulaLikeText($value, $policy);
                     }, $row);
 
-                    $line = self::buildCsvLine($values, $dialect['delimiter'], $dialect['enclosure'], $dialect['escape'], $dialect['line_ending']);
-                    if ($encoding !== 'UTF-8') {
-                        $line = EncodingDetector::convert($line, $encoding, 'UTF-8');
+                    if ($encoding === 'UTF-8') {
+                        if (fputcsv($handle, $values, $dialect['delimiter'], $dialect['enclosure'], $dialect['escape'], $dialect['line_ending']) === false) {
+                            throw MnbExcelException::withCode(
+                                'Unable to write CSV row: ' . $path,
+                                ErrorCode::CSV_WRITE_FAILED,
+                                ['path' => $path]
+                            );
+                        }
+                        continue;
                     }
+
+                    $line = self::buildCsvLine($values, $dialect['delimiter'], $dialect['enclosure'], $dialect['escape'], $dialect['line_ending']);
+                    $line = EncodingDetector::convert($line, $encoding, 'UTF-8');
                     $this->writeBytes($handle, $line, $path);
                 }
             } finally {
