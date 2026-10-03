@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mnb\PHPExcel\Format;
 
+use Mnb\PHPExcel\Metadata\MetadataFacade;
 use Mnb\PHPExcel\Core\WorkbookFactory;
 use Mnb\PHPExcel\Reader\CsvMetadataReader;
 use Mnb\PHPExcel\Reader\CsvReader;
@@ -15,6 +16,18 @@ use Mnb\PHPExcel\Snapshot\VisualSnapshot;
 
 final class Csv
 {
+    /** Developer-friendly lazy metadata API. CSV has no embedded metadata writer. */
+    public static function meta(string $path, array $options = []): MetadataFacade
+    {
+        return new MetadataFacade(
+            $path,
+            static fn(string $file, array $opts): array => self::metaInfo($file, $opts),
+            null,
+            null,
+            $options
+        );
+    }
+
     /** @param array<string,mixed> $options @return array<string,mixed> */
     public static function metaInfo(string $path, array $options = []): array
     {
