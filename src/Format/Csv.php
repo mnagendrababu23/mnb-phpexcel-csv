@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mnb\PHPExcel\Format;
 
+use Mnb\PHPExcel\Cloud\CloudAccess;
 use Mnb\PHPExcel\Metadata\MetadataFacade;
 use Mnb\PHPExcel\Core\WorkbookFactory;
 use Mnb\PHPExcel\Reader\CsvMetadataReader;
@@ -16,6 +17,7 @@ use Mnb\PHPExcel\Snapshot\VisualSnapshot;
 
 final class Csv
 {
+    use CloudAccess;
     /** Developer-friendly lazy metadata API. CSV has no embedded metadata writer. */
     public static function meta(string $path, array $options = []): MetadataFacade
     {
